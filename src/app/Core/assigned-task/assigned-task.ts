@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { TaskService } from '../../services/task-service';
 import { TaskUserService } from '../../services/task-user-service';
-import { TaskUser } from '../model/taskUser';
-import { Task } from '../model/task';
+import { TaskUser } from '../model/taskUser.model';
+import { Task } from '../model/task.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

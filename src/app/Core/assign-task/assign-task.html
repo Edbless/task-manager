@@ -1,24 +1,29 @@
-<div class="card shadow p-3 mt-3">
-      <h5 class="card-title">Assign Task</h5>
+<div class="container mt-4">
+  <h3>Assign Task</h3>
+  <p>Select a user to assign this task:</p>
 
-      <table class="table table-striped mt-3" *ngIf="freeUsers.length > 0; else noUsers">
-        <thead class="table-dark">
-          <tr>
-            <th>Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of freeUsers">
-            <td>{{ user.name }}</td>
-            <td>
-              <button class="btn btn-success btn-sm" (click)="assign(user)">Assign</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <ng-template #noUsers>
-        <p class="text-muted">No free users available for assignment.</p>
-      </ng-template>
-    </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of freeUsers; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ user.firstname }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="assign(user)">
+            Assign
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

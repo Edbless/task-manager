@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TaskUser } from '../model/taskUser';
+import { TaskUser } from '../model/taskUser.model';
 import { TaskUserService } from '../../services/task-user-service';
 import { TaskService } from '../../services/task-service';
 import { FormsModule } from '@angular/forms';
@@ -12,8 +12,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './assign-task.html',
   styleUrl: './assign-task.css'
 })
-export class AssignTask {
-
+export class AssignTaskComponent implements OnInit {
   freeUsers: TaskUser[] = [];
   taskId!: number;
 
@@ -26,13 +25,18 @@ export class AssignTask {
 
   ngOnInit() {
     this.taskId = Number(this.route.snapshot.paramMap.get('id'));
-    this.freeUsers = this.userService.getFreeUsers();
+    this.freeUsers = this.userService.getUnassignedUsers();
   }
 
   assign(user: TaskUser) {
+    // ✅ update task
     this.taskService.assignTask(this.taskId, user.id);
-    user.hasTask = true;
+
+    // ✅ update user (set assignedTaskId instead of hasTask)
+    user.assignedTaskId = this.taskId;
     this.userService.updateUser(user);
+
+    // ✅ navigate back to dashboard
     this.router.navigate(['/dashboard']);
   }
 

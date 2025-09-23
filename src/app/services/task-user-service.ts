@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TaskUser } from '../Core/model/taskUser';
+import { TaskUser } from '../Core/model/taskUser.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,17 @@ export class TaskUserService {
 
     if (index !== -1) {
       users[index].assignedTaskId = taskId;  // add this field in User model
+      localStorage.setItem(this.storageKey, JSON.stringify(users));
+    }
+  }
+
+  // ✅ Update a user (general purpose)
+  updateUser(updatedUser: TaskUser): void {
+    const users = this.getUsers();
+    const index = users.findIndex(u => u.id === updatedUser.id);
+
+    if (index !== -1) {
+      users[index] = updatedUser;
       localStorage.setItem(this.storageKey, JSON.stringify(users));
     }
   }
