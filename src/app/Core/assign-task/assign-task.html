@@ -1,1 +1,24 @@
-<p>assign-task works!</p>
+<div class="card shadow p-3 mt-3">
+      <h5 class="card-title">Assign Task</h5>
+
+      <table class="table table-striped mt-3" *ngIf="freeUsers.length > 0; else noUsers">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of freeUsers">
+            <td>{{ user.name }}</td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="assign(user)">Assign</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noUsers>
+        <p class="text-muted">No free users available for assignment.</p>
+      </ng-template>
+    </div>

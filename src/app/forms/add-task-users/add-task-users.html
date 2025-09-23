@@ -1,1 +1,14 @@
-<p>add-task-users works!</p>
+<div class="card shadow p-3 mt-3">
+      <h5 class="card-title">Add User</h5>
+      <form (ngSubmit)="addUser()" class="d-flex gap-2">
+        <input type="text" class="form-control" placeholder="Enter user name" [(ngModel)]="userName" name="userName" required>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+
+      <ul class="list-group list-group-flush mt-3" *ngIf="users.length > 0">
+        <li class="list-group-item" *ngFor="let user of users">
+          {{ user.name }} <span class="badge bg-secondary float-end">{{ user.hasTask ? 'Assigned' : 'Free' }}</span>
+        </li>
+      </ul>
+    </div>
+
