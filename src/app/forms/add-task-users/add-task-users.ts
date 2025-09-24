@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { TaskUserService } from '../../services/task-user-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TaskUser } from '../../core/model/task-user.model'; 
+import {TaskUser} from '../../Core/model/task-user.model';
+
 
 @Component({
   selector: 'app-add-task-users',
+  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './add-task-users.html',
   styleUrl: './add-task-users.css'

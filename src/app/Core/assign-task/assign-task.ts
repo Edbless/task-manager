@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TaskUser } from '../model/taskUser.model';
+import { TaskUser } from '../model/task-user.model';
 import { TaskUserService } from '../../services/task-user-service';
 import { TaskService } from '../../services/task-service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-assign-task',
+  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './assign-task.html',
   styleUrl: './assign-task.css'
