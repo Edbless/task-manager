@@ -17,7 +17,7 @@ title = '';
   constructor(private taskService: TaskService) {}
 
   addTask() {
-    if (this.title.trim() && this.description.trim()) {
+    if (this.title.trim() & this.description.trim()) {
       const newTask: Task = {
         id: Date.now(), // simple unique id
         title: this.title,
