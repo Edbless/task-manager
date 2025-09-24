@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from '../model/task.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import {TaskService} from '../../services/task-service';
 import {TaskUserService} from '../../services/task-user-service';
 import {TaskUser} from '../model/task-user.model';
@@ -9,33 +9,37 @@ import {TaskUser} from '../model/task-user.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgFor],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
 export class Dashboard implements OnInit {
   tasks: Task[] = [];
-  users: TaskUser[] = [];
 
   constructor(
     private taskService: TaskService,
-    private userService: TaskUserService,
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.loadTasks();
+  }
+
+  loadTasks(): void {
     this.tasks = this.taskService.getTasks();
-    this.users = this.userService.getUsers();
   }
 
-  getAssignedUser(task: Task): string {
-    if (!task.assignedTo) return 'Not Assigned';
-    const user = this.users.find(u => u.id === task.assignedTo);
-    return user ? `${user.firstname} ${user.lastname}` : 'Unknown';
+  goToAddTask(): void {
+    this.router.navigate(['/add-task']);
   }
 
-  assignTask(task: Task) {
-    // navigate to AssignTaskComponent with taskId
-    this.router.navigate(['/assign-task', task.id]);
+  goToAddUser(): void {
+    this.router.navigate(['/add-task-user']);
   }
+
+  completeTask(taskId: number): void {
+    this.taskService.completeTask(taskId);
+    this.loadTasks();
+  }
+
 }

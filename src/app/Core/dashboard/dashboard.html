@@ -1,21 +1,27 @@
 <div class="container mt-4">
-  <h3>Dashboard</h3>
+  <h2 class="mb-3">📋 Task Dashboard</h2>
 
-  <div class="row">
-    <div class="col-md-4" *ngFor="let task of tasks">
-      <div class="card mb-3 shadow-sm">
+  <!-- If no tasks exist -->
+  <div *ngIf="tasks.length === 0" class="alert alert-info">
+    <p>No tasks available yet. Start by adding a task or user:</p>
+    <button class="btn btn-primary me-2" (click)="goToAddTask()">➕ Add Task</button>
+    <button class="btn btn-secondary" (click)="goToAddUser()">👤 Add User</button>
+  </div>
+
+  <!-- If tasks exist -->
+  <div class="row" *ngIf="tasks.length > 0">
+    <div class="col-md-6 col-lg-4 mb-3" *ngFor="let task of tasks">
+      <div class="card shadow-sm">
         <div class="card-body">
           <h5 class="card-title">{{ task.title }}</h5>
           <p class="card-text">{{ task.description }}</p>
-          <p>
-            <strong>Assigned To:</strong> {{ getAssignedUser(task) }}
-          </p>
-
-          <!-- Show assign button only if no user assigned -->
-          <button *ngIf="!task.assignedTo"
-                  class="btn btn-sm btn-primary"
-                  (click)="assignTask(task)">
-            Assign Task
+          <span class="badge" [ngClass]="task.assignedTo ? 'bg-success' : 'bg-warning'">
+            {{ task.assignedTo ? 'Assigned' : 'Unassigned' }}
+          </span>
+        </div>
+        <div class="card-footer text-end">
+          <button class="btn btn-sm btn-danger" (click)="completeTask(task.id)">
+            ✅ Complete
           </button>
         </div>
       </div>
