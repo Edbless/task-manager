@@ -25,3 +25,5 @@ export class Navbar {
     this.router.navigate(['/login']);
   }
 }
+
+
