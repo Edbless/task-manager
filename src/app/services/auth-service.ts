@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { User } from '../Auth/user.model';
+import { BehaviorSubject } from 'rxjs';  
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private localStorageKey = 'users';
+
+  // ✅ reactive state
+  private loggedInUserSubject = new BehaviorSubject<User | null>(this.getLoggedInUser());
+  loggedInUser$ = this.loggedInUserSubject.asObservable();
 
   constructor() {}
 
@@ -18,6 +23,11 @@ export class AuthService {
     }
     users.push(user);
     localStorage.setItem(this.localStorageKey, JSON.stringify(users));
+
+    // ✅ auto-login after register
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+    this.loggedInUserSubject.next(user);
+
     return true;
   }
 
@@ -27,6 +37,7 @@ export class AuthService {
     const user = users.find(u => u.email === email && u.password === password);
     if (user) {
       localStorage.setItem('loggedInUser', JSON.stringify(user));
+      this.loggedInUserSubject.next(user); // ✅ update state
       return true;
     }
     return false;
@@ -35,6 +46,7 @@ export class AuthService {
   // Logout
   logout(): void {
     localStorage.removeItem('loggedInUser');
+    this.loggedInUserSubject.next(null); // ✅ update state
   }
 
   // Check if user is logged in
