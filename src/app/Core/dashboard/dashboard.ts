@@ -13,7 +13,7 @@ import {TaskUser} from '../model/task-user.model';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class DashboardComponent implements OnInit {
+export class Dashboard implements OnInit {
   tasks: Task[] = [];
   users: TaskUser[] = [];
 
