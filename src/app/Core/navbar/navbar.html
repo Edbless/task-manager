@@ -15,6 +15,7 @@
         <!-- Show when logged in -->
         <li class="nav-item" *ngIf="loggedInUser">
           <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+          
         </li>
         <li class="nav-item" *ngIf="loggedInUser">
           <button class="btn btn-outline-light btn-sm ms-2" (click)="logout()">Logout</button>
