@@ -31,7 +31,7 @@ export class AssignedTask implements OnInit {
   }
 
   // ✅ Fix: use firstname + lastname instead of name
-  getUserName(userId?: number): string {
+  getUserName(userId?: number | null): string {
     if (!userId) return 'Unknown';
     const user: TaskUser | undefined = this.userService.getUsers().find(u => u.id === userId);
     return user ? `${user.firstname} ${user.lastname}` : 'Unknown';

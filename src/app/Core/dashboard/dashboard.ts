@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../../Core/services/task.service';
-import { TaskUserService } from '../services/task-user.service';
 import { Router } from '@angular/router';
-import { Task } from '../../Core/model/task.model';
-import { TaskUser } from '../../Core/model/task-user.model';
+import { Task } from '../model/task.model';
 import { CommonModule } from '@angular/common';
+import {TaskService} from '../../services/task-service';
+import {TaskUserService} from '../../services/task-user-service';
+import {TaskUser} from '../model/task-user.model';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
